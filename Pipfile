@@ -13,7 +13,7 @@ asynctest = "*"
 autopep8 = "*"
 bandit = "*"
 flake8 = "*"
-mypy = "*"
+mypy = "==0.782"
 pylint = "*"
 pytest = "*"
 pytest-asyncio = "*"
@@ -21,6 +21,23 @@ pytest-cov = "*"
 yamllint = "*"
 
 [packages]
+aiohttp = "*"
+aiohttp_prometheus = "*"
+attrs = '*'
+bynder-config-loader = {index = "bynder-private-pypi", version = "*"}
+bynder-connectors = {index = "bynder-private-pypi", version = "*"}
+bynder-gatekeeper = "*"
+cattrs = '<1.2.0'
+colander = "*"
+cqrs-helpers = {extras = ["kafka"], index = "bynder-private-pypi", version = "*"}
+dnspython = "*"
+gunicorn = "*"
+newrelic = "*"
+pyjwt = "*"
+pymysql = "*"
+sentry-sdk = "*"
+sqlalchemy = "*"
+python-json-logger = "*"
 
 [requires]
 python_version = "3.7"

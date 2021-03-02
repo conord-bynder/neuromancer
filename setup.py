@@ -6,8 +6,7 @@ with open("VERSION") as fh:
 build_version = __version__
 
 
-requires = [
-]
+requires = ["aiohttp", "aiohttp-devtools"]
 
 setup(
     name="neuromancer",
