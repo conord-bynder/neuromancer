@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: {{cookiecutter.directory_name}}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: {{cookiecutter.directory_name}}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{cookiecutter.directory_name}}
+    spec:
+      containers:
+        - image: {{cookiecutter.directory_name}}:latest
+          name: {{cookiecutter.directory_name}}
+          ports:
+          - containerPort: 8080
+          envFrom:
+          - configMapRef:
+              name: default-global-config
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{cookiecutter.secrets_name}}
+                  key: AWS_ACCESS_KEY_ID
+                  optional: true
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{cookiecutter.secrets_name}}
+                  key: AWS_SECRET_ACCESS_KEY
+                  optional: true
+            - name: AWS_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{cookiecutter.secrets_name}}
+                  key: AWS_SESSION_TOKEN
+                  optional: true
+            - name: DD_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP

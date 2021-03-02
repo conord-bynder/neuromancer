@@ -1,0 +1,28 @@
+---
+version: '3.4'
+services:
+  neuromancer:
+    container_name: neuromancer
+    build:
+      context: ../neuromancer
+      dockerfile: Dockerfile
+    image: neuromancer:latest
+    restart: always
+    volumes:
+      - ../neuromancer/neuromancer/:/app/neuromancer
+      - ../neuromancer/config.default.ini:/app/config.default.ini
+      - ../neuromancer/config.development.ini:/app/config.development.ini
+    ports:
+      - "9090:8080"
+    networks:
+      - bynder.io
+    environment:
+      - AWS_REGION=eu-central-1
+      - APP_ENV=development
+    entrypoint:
+      - sh
+      - -c
+      - |
+        pipenv run run-program gunicorn --reload neuromancer.app:run_app \
+        --reload-extra-file=/app/config.default.ini --reload-extra-file=/app/config.development.ini \
+        --bind 0.0.0.0:8080 --worker-class aiohttp.worker.GunicornWebWorker

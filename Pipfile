@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[[source]]
+name = "bynder-private-pypi"
+verify_ssl = false
+url = "http://bynder-shared-s3-private-pypi-repository-eu-west-1.s3-website-eu-west-1.amazonaws.com"
+
+[dev-packages]
+asynctest = "*"
+autopep8 = "*"
+bandit = "*"
+flake8 = "*"
+mypy = "*"
+pylint = "*"
+pytest = "*"
+pytest-asyncio = "*"
+pytest-cov = "*"
+yamllint = "*"
+
+[packages]
+
+[requires]
+python_version = "3.7"

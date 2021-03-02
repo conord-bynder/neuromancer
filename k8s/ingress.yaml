@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Ingress
+metadata:
+  name: {{cookiecutter.directory_name}}-api-gateway-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "api-gateway"
+    api-gateway.bynder.ingress.kubernetes.io/path: /{{cookiecutter.directory_name}}
+spec:
+  backend:
+    serviceName: {{cookiecutter.directory_name}}
+    servicePort: 8080
