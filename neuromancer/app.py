@@ -1,8 +1,13 @@
 import logging
+import os
 
 from aiohttp.web import (
     Application)
 from aiohttp_prometheus import MetricsMiddleware
+
+from config_loader import (
+    create_session,
+    INIConfigLoader)
 
 from bynder_connectors.connections.alchemy import (
     setup_connection_manager_for_aiohttp,
@@ -26,7 +31,10 @@ async def run_app() -> Application:
         setup_alchemy_read_write_transaction_middleware()])
 
     app.middlewares.append(MetricsMiddleware())
-
+    config = INIConfigLoader(
+                os.environ.get('APP_ENV', 'development'))
+    app['config'] = config
+    app['aws_session'] = create_session(config)
     setup_connection_manager_for_aiohttp(app)
     setup_alchemy_read_write_connection_for_aiohttp(app)
 
