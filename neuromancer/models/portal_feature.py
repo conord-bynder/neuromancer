@@ -10,5 +10,5 @@ class PortalFeature(ModelBase, ModelUtils):
 
     feature_id = Column(
         'featureid', CFUUID(), ForeignKey('features.id'), primary_key=True)
-    neuromancer_id = Column(
+    portal_id = Column(
         'accountid', CFUUID(), ForeignKey('accounts.id'), primary_key=True)
